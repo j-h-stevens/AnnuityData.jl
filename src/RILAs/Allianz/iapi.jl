@@ -67,5 +67,5 @@ fees = Dict(:Fees => merge(Dict(:Contract => 0.0195), surrender))
 iapi = merge(product, income_rider, strategies, fees)
 
 open(joinpath(pwd(), "Outputs", "Allianz", "IAPI.json"), "w") do io
-    JSON3.pretty(io, iapi)
+    JSON3.write(io, iapi)
 end
