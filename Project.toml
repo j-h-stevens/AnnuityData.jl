@@ -1,0 +1,13 @@
+name = "AnnuityData"
+uuid = "b8389161-6eb7-4bd3-bfc3-e97fe36a9719"
+authors = ["John Stevens"]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.9.2"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
