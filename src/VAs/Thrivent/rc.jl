@@ -1,8 +1,19 @@
+using CSV, DataFrames, JSON3
+
+#Company/prodyct
+comp_nam = Dict(:Company => :Allianz)
+comp_rat = Dict(:Comdex => 97)
+prod_nam = Dict(:Product_Name => :Index_Advantage_Income)
+prod_type = Dict(:Growth => :Account)
+
+#combine
+product = Dict(:Product => merge(comp_nam, comp_rat, prod_nam, prod_type))
+
 #Withdrawals
-ls = CSV.read(joinpath(pwd(), "inputs", "RILAs", "Allianz", "IAPI", "Level_Single.csv"), DataFrame)
-lj = CSV.read(joinpath(pwd(), "inputs", "RILAs", "Allianz", "IAPI", "Level_Joint.csv"), DataFrame)
-rs = CSV.read(joinpath(pwd(), "inputs", "RILAs", "Allianz", "IAPI", "Rising_Single.csv"), DataFrame)
-rj = CSV.read(joinpath(pwd(), "inputs", "RILAs", "Allianz", "IAPI", "Rising_Joint.csv"), DataFrame)
+ls = CSV.read(joinpath(pwd(), "inputs", "Allianz", "IAPI", "Level_Single.csv"), DataFrame)
+lj = CSV.read(joinpath(pwd(), "inputs", "Allianz", "IAPI", "Level_Joint.csv"), DataFrame)
+rs = CSV.read(joinpath(pwd(), "inputs", "Allianz", "IAPI", "Rising_Single.csv"), DataFrame)
+rj = CSV.read(joinpath(pwd(), "inputs", "Allianz", "IAPI", "Rising_Joint.csv"), DataFrame)
 
 deferrals = parse.(Int64, names(ls)[2:end]) .+ 1
 ls_dict = Dict(:Single => reduce(merge, [Dict(j+49 => reduce(merge, [Dict(i-1 => ls[j, i]) for i ∈ deferrals])) for j ∈ axes(ls,1)]))
@@ -14,13 +25,13 @@ withdrawals = Dict(:Withdrawals => merge(Dict(:Level => merge(ls_dict, lj_dict))
 
 #Rider Parameters
 location = Dict(:Location => :Issue)
-mins = Dict(:Minimums => Dict(:Deferral => 1))
+mins = Dict(:Minimums => merge(Dict(:Age => 60), Dict(:Deferral => 1)))
 maxes = Dict(:Maximums => Dict(:Age => 84))
 params = Dict(:Paramaters => merge(location, mins, maxes))
 income_rider = Dict(:Rider => merge(withdrawals, params))
 
 #Crediting Strategies
-cs = CSV.read(joinpath(pwd(), "inputs", "RILAs", "Allianz", "IAPI", "Crediting_Strategies.csv"), DataFrame)
+cs = CSV.read(joinpath(pwd(), "inputs", "Allianz", "IAPI", "Crediting_Strategies.csv"), DataFrame)
 
 val_keys = [:Cap, :Par, :Buffer, :Floor]
 
@@ -55,8 +66,9 @@ function cred_strats(df::DataFrame)
 end
 strategies = Dict(:Strategies => cred_strats(cs))
 
-#Product
-prod_type = Dict(:Growth_Type => :Account)
-iapi = Dict(:Index_Advantage_Income => merge(prod_type, income_rider, strategies, fees))
+#Single Dictionaru
+iapi = merge(product, income_rider, strategies, fees)
 
-export iapi
+open(joinpath(pwd(), "Outputs", "Allianz", "IAPI.json"), "w") do io
+    JSON3.write(io, iapi)
+end
