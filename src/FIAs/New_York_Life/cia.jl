@@ -19,7 +19,7 @@ end
 
 fem = Dict(:Female => csv2agedict(f, deferrals))
 male = Dict(:Male => csv2agedict(m, deferrals))
-joint = Dict(:JOint => csv2agedict(j, deferrals))
+joint = Dict(:Joint => csv2agedict(j, deferrals))
 
 withdrawals = Dict(:Withdrawals => Dict(:Level => merge(fem, male, joint)))
 
