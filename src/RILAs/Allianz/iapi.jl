@@ -33,6 +33,13 @@ income_rider = Dict(:Rider => merge(withdrawals, params))
 #Crediting Strategies
 cs = CSV.read(joinpath(pwd(), "inputs", "Allianz", "IAPI", "Crediting_Strategies.csv"), DataFrame)
 
+val_keys = [:Cap, :Par, :Buffer, :Floor]
+
+#Fees
+surrender = Dict(:Surrender => [0.085, 0.08, 0.07, 0.06, 0.05, 0.04, 0.0])
+fees = Dict(:Fees => merge(Dict(:Contract => 0.0195), surrender))
+
+#Segment Credit Strategies
 function cred_strats(df::DataFrame)
     val_keys = [:Cap, :Par, :Buffer, :Floor]
     op = []
@@ -58,10 +65,6 @@ function cred_strats(df::DataFrame)
     return reduce(merge, op)
 end
 strategies = Dict(:Strategies => cred_strats(cs))
-
-#Fees
-surrender = Dict(:Surrender => [0.085, 0.08, 0.07, 0.06, 0.05, 0.04, 0.0])
-fees = Dict(:Fees => merge(Dict(:Contract => 0.0195), surrender))
 
 #Single Dictionaru
 iapi = merge(product, income_rider, strategies, fees)
