@@ -23,4 +23,13 @@ open(joinpath(pwd(), "Outputs/FIAs.json"), "w") do io
     JSON3.write(io, fias)
 end
 
+include(joinpath(pwd(), "src", "VAs","Thrivent", "ric.jl"))
+#Merge Allianz RILAs
+tf = Dict(:Thrivent_Financial => merge(Dict(:Comdex => 100), Dict(:Products => ric)))
+
+vas = Dict(:VAs => tf)
+open(joinpath(pwd(), "Outputs/VAs.json"), "w") do io
+    JSON3.write(io, vas)
+end
+
 end

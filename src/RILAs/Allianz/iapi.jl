@@ -1,3 +1,6 @@
+using CSV
+using DataFrames
+
 #Withdrawals
 ls = CSV.read(joinpath(pwd(), "inputs", "RILAs", "Allianz", "IAPI", "Level_Single.csv"), DataFrame)
 lj = CSV.read(joinpath(pwd(), "inputs", "RILAs", "Allianz", "IAPI", "Level_Joint.csv"), DataFrame)
