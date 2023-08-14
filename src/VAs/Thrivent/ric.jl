@@ -1,7 +1,7 @@
 #Withdrawals
 r = 0.06
 ages = collect(50:1:80)
-deferrals = collect(0:1:12)
+deferrals = collect(1:1:12)
 sws = Dict(ages .=> zeros(length(ages)))
 for i ∈ collect(50:1:59) sws[i] = 0.0325 end 
 for i ∈ collect(60:1:64) sws[i] = 0.0375 end 
