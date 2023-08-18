@@ -21,10 +21,10 @@ fem = Dict(:Female => csv2agedict(f, deferrals))
 male = Dict(:Male => csv2agedict(m, deferrals))
 joint = Dict(:Joint => csv2agedict(j, deferrals))
 
-withdrawals = Dict(:Withdrawals => Dict(:Level => merge(fem, male, joint)))
+ws = Dict(:Withdrawals => Dict(:Level => merge(fem, male, joint)))
 
 #Rider Parameters
-income_rider = Dict(:Rider => withdrawals)
+income_rider = Dict(:Rider => ws)
 
 #Fees
 surrender = Dict(:Surrender => [0.085, 0.08, 0.07, 0.06, 0.05, 0.04, 0.0])

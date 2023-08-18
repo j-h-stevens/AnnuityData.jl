@@ -13,14 +13,14 @@ lj_dict = Dict(:Joint => reduce(merge, [Dict(j+49 => reduce(merge, [Dict(i-1 => 
 rs_dict = Dict(:Single => reduce(merge, [Dict(j+49 => reduce(merge, [Dict(i-1 => rs[j, i]) for i ∈ deferrals])) for j ∈ axes(ls,1)]))
 rj_dict = Dict(:Joint => reduce(merge, [Dict(j+49 => reduce(merge, [Dict(i-1 => rj[j, i]) for i ∈ deferrals])) for j ∈ axes(ls,1)]))
 
-withdrawals = Dict(:Withdrawals => merge(Dict(:Level => merge(ls_dict, lj_dict)), Dict(:Rising => merge(rs_dict, rj_dict))))
+ws = Dict(:Withdrawals => merge(Dict(:Level => merge(ls_dict, lj_dict)), Dict(:Rising => merge(rs_dict, rj_dict))))
 
 #Rider Parameters
 location = Dict(:Location => :Issue)
 mins = Dict(:Minimums => Dict(:Deferral => 1))
 maxes = Dict(:Maximums => Dict(:Age => 84))
 params = Dict(:Paramaters => merge(location, mins, maxes))
-income_rider = Dict(:Rider => merge(withdrawals, params))
+income_rider = Dict(:Rider => merge(ws, params))
 
 #Crediting Strategies
 cs = CSV.read(joinpath(pwd(), "inputs", "RILAs", "Allianz", "IAPI", "Crediting_Strategies.csv"), DataFrame)
