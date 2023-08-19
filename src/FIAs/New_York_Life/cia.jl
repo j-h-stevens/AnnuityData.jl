@@ -30,14 +30,9 @@ income_rider = Dict(:Rider => ws)
 surrender = Dict(:Surrender => [0.085, 0.08, 0.07, 0.06, 0.05, 0.04, 0.0])
 fees = Dict(:Fees => merge(Dict(:Contract => 0.01), surrender))
 
-#Company/prodyct
-comp_nam = Dict(:Company => :New_York_Life)
-comp_rat = Dict(:Comdex => 100)
-prod_nam = Dict(:Product_Name => :Clear_Income_Advantage)
-prod_type = Dict(:Growth => :Account)
+#Benefits
+benefit = Dict(:Benefit => Dict(:Options => Dict(:Fixed => :Fixed)))
 
-#Product
-prod_type = Dict(:Growth_Type => :Account)
-cia = Dict(:Clear_Income_Advantage => merge(prod_type, income_rider, fees))
+cia = Dict(:Clear_Income_Advantage => merge(benefit, income_rider, fees))
 
 export cia

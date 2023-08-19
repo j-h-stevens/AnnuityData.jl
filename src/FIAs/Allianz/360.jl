@@ -54,8 +54,10 @@ multiplier = Dict(:Multiplier => merge(Dict(:Rate => 1.25), Dict(:Term => :Defer
 bonus = Dict(:Bonus => 1.25)
 benefit = Dict(:Benefit => merge(bonus, multiplier))
 
-#Product
-prod_type = Dict(:Growth_Type => :Multiplier)
-alz_360 = Dict(Symbol(360) => merge(prod_type, benefit, income_rider, strategies, fees))
+#Benefits
+multiplier = Dict(:Multiplier => 1.25)
+benefit = Dict(:Benefit => Dict(:Options => Dict(:Multiplier => multiplier)))
+
+alz_360 = Dict(Symbol(360) => merge(benefit, income_rider, strategies, fees))
 
 export alz_360

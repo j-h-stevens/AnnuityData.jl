@@ -51,10 +51,8 @@ fees = Dict(:Fees => merge(Dict(:Contract => 0.0), surrender))
 #Benefits
 multiplier = Dict(:Multiplier => 1.5)
 bonus = Dict(:Bonus => 1.5)
-benefit = Dict(:Benefit => merge(bonus, multiplier))
+benefit = Dict(:Benefit => Dict(:Options => Dict(:Multiplier => merge(bonus, multiplier))))
 
-#Product
-prod_type = Dict(:Growth_Type => :Multiplier)
-alz_222 = Dict(Symbol(222) => merge(prod_type, benefit, income_rider, strategies, fees))
+alz_222 = Dict(Symbol(222) => merge(benefit, income_rider, strategies, fees))
 
 export alz_222

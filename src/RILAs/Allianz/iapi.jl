@@ -58,8 +58,9 @@ function cred_strats(df::DataFrame)
 end
 strategies = Dict(:Strategies => cred_strats(cs))
 
-#Product
-prod_type = Dict(:Growth_Type => :Account)
-iapi = Dict(:Index_Advantage_Income => merge(prod_type, income_rider, strategies, fees))
+#Benefits
+benefit = Dict(:Benefit => Dict(:Options => Dict(:Account => :Account)))
+
+iapi = Dict(:Index_Advantage_Income => merge(benefit, income_rider, strategies, fees))
 
 export iapi

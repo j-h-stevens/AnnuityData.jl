@@ -55,8 +55,9 @@ strategies = Dict(:Strategies => [snp_p2p, russ_p2p, nas_p2p, fix])
 surrender = Dict(:Surrender => [0.065, 0.06, 0.05, 0.04, 0.03, 0.02, 0.01])
 fees = Dict(:Fees => merge(Dict(:Contract => 0.0125), surrender))
 
-#Product
-prod_type = Dict(:Growth_Type => :Account)
-alz_rf = Dict(:Retirement_Foundation_ADV => merge(prod_type, income_rider, strategies, fees))
+#Benefits
+benefit = Dict(:Benefit => Dict(:Options => Dict(:Account => :Account)))
+
+alz_rf = Dict(:Retirement_Foundation_ADV => merge(benefit, income_rider, strategies, fees))
 
 export alz_rf

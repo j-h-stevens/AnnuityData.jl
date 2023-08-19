@@ -41,8 +41,11 @@ surrender = Dict(:Surrender => [0.085, 0.08, 0.07, 0.06, 0.05, 0.04, 0.0])
 fees = Dict(:Fees => merge(Dict(:Contract => 0.0125), Dict(:Rider => 0.013), surrender))
 
 #Company/prodyct
-prod_type = Dict(:Growth => :Simple)
+simple = Dict(:Rollup => 0.06)
 
-ric = Dict(:Retirement_Income_Choice => merge(prod_type, income_rider, fees))
+#Benefits
+benefit = Dict(:Benefit => Dict(:Options => Dict(:Simple => simple)))
+
+ric = Dict(:Retirement_Income_Choice => merge(benefit, income_rider, fees))
 
 export ric

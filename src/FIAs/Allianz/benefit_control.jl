@@ -52,7 +52,6 @@ bonus = Dict(:Bonus => 1.25)
 benefit = Dict(:Benefit => merge(bonus, Dict(:Options => merge(op1, op2))))
 
 #Product
-prod_type = Dict(:Growth_Type => :Multiplier)
-alz_bc = Dict(:Benefit_Control => merge(prod_type, benefit, income_rider, strategies, fees))
+alz_bc = Dict(:Benefit_Control => merge(benefit, income_rider, strategies, fees))
 
 export alz_bc
